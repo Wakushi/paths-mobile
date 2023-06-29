@@ -1,0 +1,73 @@
+.game {
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(62, 53, 73);
+
+  img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+.game-background {
+  position: absolute;
+}
+
+.game-content {
+  position: relative;
+  justify-content: space-between;
+  z-index: 1;
+  max-width: 430px;
+  margin: 0 auto;
+  height: 100dvh;
+  min-height: 650px;
+  background-color: rgb(174, 155, 216);
+  background-size: cover;
+  box-shadow: 1px 1px 21px #1111119a;
+}
+
+.door-transition {
+  height: 100dvh;
+  z-index: 9;
+  position: absolute;
+  top: -100%;
+  background-color: rgba(0, 0, 0, 0.452);
+  width: 100%;
+  box-shadow: 1px 1px 8px #111111b4;
+  animation: sas-door 3s ease-in-out;
+}
+
+.moving-background {
+  animation: moving-background 200s ease-out infinite;
+}
+
+@keyframes sas-door {
+  0% {
+    top: -100%;
+  }
+  40% {
+    top: 0;
+  }
+  60% {
+    top: 0;
+  }
+  100% {
+    top: -100%;
+  }
+}
+
+@keyframes moving-background {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 40%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}

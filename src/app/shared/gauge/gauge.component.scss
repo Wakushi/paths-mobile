@@ -1,0 +1,22 @@
+.gauge {
+  box-shadow: 1px 1px 8px black;
+  background-color: #2c1241;
+  gap: 2.5rem;
+
+  .gauge-patron {
+    position: relative;
+    z-index: 1;
+  }
+
+  .gauge-icons__gauges {
+    position: absolute;
+    height: 34px;
+    width: 60%;
+
+    .gauge-box {
+      flex: 1;
+      align-self: flex-end;
+      transition: 0.8s;
+    }
+  }
+}

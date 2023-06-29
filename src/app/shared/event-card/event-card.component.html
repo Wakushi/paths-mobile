@@ -1,0 +1,34 @@
+<div *ngIf="event$ | async as event" class="event-box flex--col flex--ctr">
+  <p class="event-box__text flex--al flex--ctr">
+    {{ event.dialog }}
+  </p>
+  <div #eventCard class="event-box__image flex--ctr">
+    <ng-container *ngIf="animateCard">
+      <div
+        class="card"
+        [ngClass]="{ 'no-shadows': (isDeckVisible$ | async) === false }"
+      >
+        <div *ngIf="isDeckVisible$ | async" class="card__face">
+          <img
+            class="event-image"
+            (dragstart)="(false)"
+            src="../../../assets/images/backgrounds/card-back.webp"
+          />
+        </div>
+        <div class="card__face card__face--back">
+          <img [src]="eventImage?.src" (dragstart)="(false)" />
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div #leftChoice class="card__face__text card__face__text--left">
+    {{ event.leftChoice.text }}
+  </div>
+  <div #rightChoice class="card__face__text card__face__text--right">
+    {{ event.rightChoice.text }}
+  </div>
+  <div *ngIf="isDeckVisible$ | async" class="event-card-back">
+    <img src="../../../assets/images/backgrounds/card-back.webp" />
+  </div>
+  <h1 class="event-box__name">{{ event.eventName }}</h1>
+</div>
