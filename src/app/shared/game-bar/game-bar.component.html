@@ -8,38 +8,54 @@
     class="game-bar__inventory flex"
   >
     <div class="item-slot">
-      <img
+      <div
+        class="item-image-wrapper"
         [ngClass]="{ 'zoomed-item--a': isItemAZoomed }"
-        *ngIf="userInventory.length"
-        [src]="itemsImage[userInventory[0]]"
-        (click)="toggleItemZoom('A')"
-      />
+      >
+        <img
+          *ngIf="userInventory.length"
+          [src]="itemsImage[userInventory[0]]"
+          (click)="toggleItemZoom('A')"
+        />
+      </div>
     </div>
     <div class="item-slot">
-      <img
+      <div
+        class="item-image-wrapper"
         [ngClass]="{ 'zoomed-item--b': isItemBZoomed }"
-        *ngIf="userInventory.length > 1"
-        [src]="itemsImage[userInventory[1]]"
-        (click)="toggleItemZoom('B')"
-      />
+      >
+        <img
+          *ngIf="userInventory.length > 1"
+          [src]="itemsImage[userInventory[1]]"
+          (click)="toggleItemZoom('B')"
+        />
+      </div>
     </div>
     <div class="item-slot">
-      <img
+      <div
+        class="item-image-wrapper"
         [ngClass]="{ 'zoomed-item--c': isItemCZoomed }"
-        *ngIf="userInventory.length > 2"
-        [src]="itemsImage[userInventory[2]]"
-        (click)="toggleItemZoom('C')"
-      />
+      >
+        <img
+          *ngIf="userInventory.length > 2"
+          [src]="itemsImage[userInventory[2]]"
+          (click)="toggleItemZoom('C')"
+        />
+      </div>
     </div>
     <div class="item-slot">
-      <img
+      <div
+        class="item-image-wrapper"
         [ngClass]="{
           'zoomed-item--d': isItemDZoomed
         }"
-        *ngIf="userInventory.length > 3"
-        [src]="itemsImage[userInventory[3]]"
-        (click)="toggleItemZoom('D')"
-      />
+      >
+        <img
+          *ngIf="userInventory.length > 3"
+          [src]="itemsImage[userInventory[3]]"
+          (click)="toggleItemZoom('D')"
+        />
+      </div>
     </div>
   </div>
   <h3 class="game-bar__time">{{ runLightYears$ | async }} LY</h3>

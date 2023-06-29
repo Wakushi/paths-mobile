@@ -136,18 +136,22 @@
 
 .zoomed-item--a {
   z-index: 8;
+  position: absolute;
   animation: zoom-item-a 2s forwards;
 }
 .zoomed-item--b {
   z-index: 8;
+  position: absolute;
   animation: zoom-item-b 2s forwards;
 }
 .zoomed-item--c {
   z-index: 8;
+  position: absolute;
   animation: zoom-item-c 2s forwards;
 }
 .zoomed-item--d {
   z-index: 8;
+  position: absolute;
   animation: zoom-item-d 2s forwards;
 }
 
