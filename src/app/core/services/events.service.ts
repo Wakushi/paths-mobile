@@ -28,9 +28,11 @@ import {
   asteroidEventFail,
   asteroidSequence,
   skjoldAsteroidEvents,
+  skjoldBunkerEvents,
   skjoldEventsCollection,
   skjoldIntroEvents,
 } from "./event-collections/skjold-events"
+import { pastEventsIntro } from "./event-collections/past-events"
 
 @Injectable({
   providedIn: "root",
@@ -95,7 +97,10 @@ export class EventService {
     if (this._userService.checkInventory("CARTOGRAPHER_MAP")) {
       this.injectFollowedEvent(skjoldAsteroidEvents, 15)
     }
-
+    if (this._userService.checkInventory("FEDERATION_WARPER")) {
+      this._gameService.setGameBackground("pastShip")
+      // TODO: add past events
+    }
     this.currentEvent$.next(this.basicEvents[0])
     this.basicEvents.shift()
   }
@@ -109,25 +114,10 @@ export class EventService {
     this.eventCounter = 0
   }
 
-  refillDiscardedEvents(): void {
-    this.basicEvents = this.basicEvents.concat(this.eventDiscard)
-    this.eventDiscard = []
-  }
-
   injectFollowedEvent(collection: EventModel[], maxDistance: number): void {
     const randomIndex = getRandomNumber(maxDistance)
     this.basicEvents.splice(randomIndex, 0, ...collection)
   }
-
-  // injectSeparatedQuest(): void {
-  //   if (questEventsCollection.length > 1) {
-  //     const questDistance = getRandomNumber(10)
-  //     const questPair = questEventsCollection.splice(0, 2)
-  //     const randomIndex = getRandomIndex(this.basicEvents)
-  //     this.basicEvents.splice(randomIndex, 0, questPair[0])
-  //     this.basicEvents.splice(randomIndex + questDistance, 0, questPair[1])
-  //   }
-  // }
 
   onSpecialEvent(eventValue: string): void {
     this.specialEvents.push(eventValue)
@@ -169,7 +159,7 @@ export class EventService {
         this._gameService.launchShipDoorAnimation()
         setTimeout(() => {
           this._gameService.isBackgroundMoving$.next(true)
-        this._gameService.setGameBackground("asteroidEvent")
+          this._gameService.setGameBackground("asteroidEvent")
           this._gameService.setDeckVisible(false)
         }, 1000)
         break
@@ -186,13 +176,25 @@ export class EventService {
             this.basicEvents.concat(skjoldEventsCollection)
           )
           this.basicEvents.unshift(skjoldIntroEvents[0])
+          this.injectFollowedEvent(skjoldBunkerEvents, 20)
         } else {
           this.injectFollowedEvent(skjoldAsteroidEvents, 15)
           this.basicEvents.unshift(asteroidEventFail)
         }
         this._gameService.setGameBackground("classicShip")
         this._gameService.setDeckVisible(true)
+        break
 
+      case "SKJOLD_BUNKER":
+        this.openQuestSnackbar("Find the Federation tech's cache")
+        this._questService.removeQuest("SJKOLD_BUNKER")
+        this._itemService.federationWarper$.next(true)
+        this._userService.addItem("FEDERATION_WARPER")
+        this._gameService.launchBlackScreenAnimation()
+        this.basicEvents = [...pastEventsIntro, ...this.basicEvents]
+        setTimeout(() => {
+          this._gameService.setGameBackground("pastShip")
+        }, 1000)
         break
       default:
         break

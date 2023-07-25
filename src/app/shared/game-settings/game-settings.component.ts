@@ -110,6 +110,7 @@ export class GameSettingsComponent implements AfterViewInit, OnInit {
   }
 
   onResetGame(): void {
+    this._router.navigateByUrl("")
     this._eventService.initializeNewGame()
     this._userService.resetHasSeenIntro()
     this._userService.resetInventory()
@@ -118,7 +119,6 @@ export class GameSettingsComponent implements AfterViewInit, OnInit {
     this._eventService.eventDiscard = []
     this._gameService.runLightYears$.next(0)
     this._musicService.pause()
-    this._router.navigateByUrl("")
     this._itemService.resetItems()
   }
 

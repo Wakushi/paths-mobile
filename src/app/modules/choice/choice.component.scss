@@ -45,6 +45,17 @@
   animation: moving-background 200s ease-out infinite;
 }
 
+.black-screen {
+  position: absolute;
+  z-index: 1;
+  background-color: rgb(0, 0, 0);
+  pointer-events: none;
+  height: 100dvh;
+  width: 100%;
+  opacity: 0;
+  animation: fade-out-black-screen 2s forwards;
+}
+
 @keyframes sas-door {
   0% {
     top: -100%;
@@ -69,5 +80,20 @@
   }
   100% {
     background-position: 0% 0%;
+  }
+}
+
+@keyframes fade-out-black-screen {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

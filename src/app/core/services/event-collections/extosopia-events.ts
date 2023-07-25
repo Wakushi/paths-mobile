@@ -49,7 +49,7 @@ export const extosopiaRepairEvents: EventModel[] = [
   {
     eventName: "Extosopian Cartographer",
     dialog:
-      "I've heard of an hidden planet where the federation hides some advanced shield-technology.. All I've got is this mysterious map.",
+      "I've heard of an hidden planet where the federation hides some advanced warp-technology.. All I've got is this mysterious map.",
     eventImage: EXTOSOPIA_CARTOGRAPHER,
     rightChoice: {
       text: "Thanks a lot, here's some ionic-batteries in exchange.",

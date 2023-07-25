@@ -26,7 +26,7 @@ export const questsCollection: Quest[] = [
     questText: "Discover the Kie Nebula (60 LY)",
   },
   {
-    questId: "KLOMA_BOY",
-    questText: "Find the Kloma boy",
+    questId: "SJKOLD_BUNKER",
+    questText: "Find the Federation tech's cache",
   },
 ]

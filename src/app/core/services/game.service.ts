@@ -9,7 +9,6 @@ export class GameService {
   isGameOver$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   deathMessage$: BehaviorSubject<string> = new BehaviorSubject<string>("")
   runLightYears$: BehaviorSubject<number> = new BehaviorSubject<number>(0)
-
   gameBackground$: BehaviorSubject<string> = new BehaviorSubject<string>(
     backgroundCollection["classicShip"]
   )
@@ -20,6 +19,8 @@ export class GameService {
   isBackgroundMoving$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   )
+  isBlackScreenVisible$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false)
 
   setGameBackground(backgroundContext: string): void {
     this.gameBackground$.next(backgroundCollection[backgroundContext])
@@ -33,6 +34,13 @@ export class GameService {
     this.shipDoorTransition$.next(true)
     setTimeout(() => {
       this.shipDoorTransition$.next(false)
+    }, 4000)
+  }
+
+  launchBlackScreenAnimation(): void {
+    this.isBlackScreenVisible$.next(true)
+    setTimeout(() => {
+      this.isBlackScreenVisible$.next(false)
     }, 4000)
   }
 }

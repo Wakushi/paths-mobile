@@ -5,7 +5,7 @@
   />
   <div
     class="game-content flex--col"
-    [ngClass]="{ 'moving-background' : isBackgroundMoving$ | async }"
+    [ngClass]="{ 'moving-background': isBackgroundMoving$ | async }"
     [ngStyle]="{
       background:
         (isGameOver$ | async) ? gameOverBackground : (gameBackground$ | async)
@@ -24,3 +24,4 @@
   </div>
 </div>
 <app-snackbar [snackEvent]="snackbarMessage$"></app-snackbar>
+<div *ngIf="isBlackScreenVisible$ | async" class="black-screen"></div>

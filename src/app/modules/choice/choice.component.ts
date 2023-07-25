@@ -24,11 +24,12 @@ export class ChoiceComponent implements OnInit, OnDestroy {
 
   currentEvent$!: Observable<EventModel>
   isGameOver$!: Observable<boolean>
+  isBackgroundMoving$!: Observable<boolean>
   isMusicPlaying$!: BehaviorSubject<boolean>
   snackbarMessage$!: BehaviorSubject<string>
   gameBackground$!: BehaviorSubject<string>
   shipDoorTransition$!: BehaviorSubject<boolean>
-  isBackgroundMoving$!: Observable<boolean>
+  isBlackScreenVisible$!: BehaviorSubject<boolean>
   playSubscription: Subscription = new Subscription()
   pauseSubscription: Subscription = new Subscription()
   mainTheme = new Audio("../../assets/sounds/music/nova.mp3")
@@ -46,6 +47,7 @@ export class ChoiceComponent implements OnInit, OnDestroy {
     this.gameBackground$ = this._gameService.gameBackground$
     this.isBackgroundMoving$ = this._gameService.isBackgroundMoving$
     this.shipDoorTransition$ = this._gameService.shipDoorTransition$
+    this.isBlackScreenVisible$ = this._gameService.isBlackScreenVisible$
     this.isGameOver$ = this._gameService.isGameOver$
     this.snackbarMessage$ = this._eventService.snackbarMessage$
     this.initializeAudio()

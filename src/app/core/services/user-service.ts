@@ -66,6 +66,10 @@ export class UserService {
             userInventory.push(item)
             this._itemService.cartographerMap$.next(true)
             break
+          case "FEDERATION_WARPER":
+            userInventory.push(item)
+            this._itemService.federationWarper$.next(true)
+            break
 
           default:
             break

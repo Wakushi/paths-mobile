@@ -5,7 +5,8 @@ const ASTEROID_FIELD_FAIL: string =
   "../../assets/images/pnj/asteroid-field-fail.webp"
 const SKJOLD: string = "../../assets/images/pnj/skjold.webp"
 const SKJOLD_INTRO: string = "../../assets/images/pnj/skjold-intro.webp"
-const SHIP_ASSET:string = "../../assets/images/pnj/ship-rear.webp"
+const SHIP_ASSET: string = "../../assets/images/pnj/ship-rear.webp"
+const SKJOLD_CRATE: string = "../../assets/images/pnj/skjold-crate.webp"
 
 export const asteroidSequence: string[] = [
   "left",
@@ -129,6 +130,24 @@ export const skjoldIntroEvents: EventModel[] = [
       consequence: {},
     },
     quest: "SKJOLD_INTRO",
+  },
+]
+
+export const skjoldBunkerEvents: EventModel[] = [
+  {
+    eventName: "Skjold : Abandoned Federation bunker",
+    dialog:
+      "You stumble across a crate in an old bunker once occupied by the Federation. It contains a weird teleportation device.. which starts to glow.",
+    eventImage: SKJOLD_CRATE,
+    rightChoice: {
+      text: "Wh-.. ?",
+      consequence: {},
+    },
+    leftChoice: {
+      text: "...",
+      consequence: {},
+    },
+    quest: "SKJOLD_BUNKER",
   },
 ]
 
