@@ -9,11 +9,11 @@ import { EventModel } from "src/app/models/event.model"
 import { backgroundCollection } from "src/assets/background-collection"
 
 @Component({
-  selector: "app-choice",
-  templateUrl: "./choice.component.html",
-  styleUrls: ["./choice.component.scss"],
+  selector: "app-game",
+  templateUrl: "./game.component.html",
+  styleUrls: ["./game.component.scss"],
 })
-export class ChoiceComponent implements OnInit, OnDestroy {
+export class GameComponent implements OnInit, OnDestroy {
   constructor(
     private _eventService: EventService,
     private _gameService: GameService,
@@ -43,15 +43,8 @@ export class ChoiceComponent implements OnInit, OnDestroy {
     this._questService.initializeQuestPool()
     this._eventService.initializeEventArray()
     this._userService.getBestScore()
-    this.currentEvent$ = this._eventService.currentEvent$
-    this.gameBackground$ = this._gameService.gameBackground$
-    this.isBackgroundMoving$ = this._gameService.isBackgroundMoving$
-    this.shipDoorTransition$ = this._gameService.shipDoorTransition$
-    this.isBlackScreenVisible$ = this._gameService.isBlackScreenVisible$
-    this.isGameOver$ = this._gameService.isGameOver$
-    this.snackbarMessage$ = this._eventService.snackbarMessage$
     this.initializeAudio()
-    this._gameService.isBackgroundMoving$.next(false)
+    this.initializeObservables()
   }
 
   initializeAudio(): void {
@@ -63,6 +56,17 @@ export class ChoiceComponent implements OnInit, OnDestroy {
     this.pauseSubscription = this._musicService.pauseAudio$.subscribe(() => {
       this.mainTheme.pause()
     })
+  }
+
+  initializeObservables(): void {
+    this.currentEvent$ = this._eventService.currentEvent$
+    this.gameBackground$ = this._gameService.gameBackground$
+    this.isBackgroundMoving$ = this._gameService.isBackgroundMoving$
+    this.shipDoorTransition$ = this._gameService.shipDoorTransition$
+    this.isBlackScreenVisible$ = this._gameService.isBlackScreenVisible$
+    this.isGameOver$ = this._gameService.isGameOver$
+    this.snackbarMessage$ = this._eventService.snackbarMessage$
+    this._gameService.isBackgroundMoving$.next(false)
   }
 
   ngOnDestroy() {

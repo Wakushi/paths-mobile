@@ -110,8 +110,8 @@ export class GameSettingsComponent implements AfterViewInit, OnInit {
   }
 
   onResetGame(): void {
+    this.onCloseSettings()
     this._router.navigateByUrl("")
-    this._eventService.initializeNewGame()
     this._userService.resetHasSeenIntro()
     this._userService.resetInventory()
     this._userService.resetQuestList()
@@ -120,6 +120,7 @@ export class GameSettingsComponent implements AfterViewInit, OnInit {
     this._gameService.runLightYears$.next(0)
     this._musicService.pause()
     this._itemService.resetItems()
+    this._eventService.initializeNewGame()
   }
 
   onPlayButton(): void {

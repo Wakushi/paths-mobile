@@ -54,7 +54,7 @@ export class EventService {
   currentEvent$: BehaviorSubject<EventModel> = new BehaviorSubject<EventModel>(
     {} as EventModel
   )
-  basicEvents: EventModel[] = [...basicEventsCollection]
+  eventsPool: EventModel[] = [...basicEventsCollection]
   eventDiscard: EventModel[] = []
   specialEvents: string[] = []
   eventCounter: number = 0
@@ -70,7 +70,7 @@ export class EventService {
     this.eventReader(this.currentEvent$.value)
 
     setTimeout(() => {
-      const nextEvent = this.basicEvents.splice(0, 1)[0]
+      const nextEvent = this.eventsPool.splice(0, 1)[0]
       this.eventDiscard.push(nextEvent)
       this.currentEvent$.next(nextEvent)
     }, 500)
@@ -79,20 +79,20 @@ export class EventService {
   // EVENTS POOL INITIALIZATION & CONTROL
 
   initializeEventArray(): void {
-    this.basicEvents = [...basicEventsCollection]
+    this.eventsPool = [...basicEventsCollection]
     if (this._userService.checkInventory("GAUGE_RELIC")) {
-      this.basicEvents = shuffleEventArray(
-        this.basicEvents.concat(extosopiaEventsCollection)
+      this.eventsPool = shuffleEventArray(
+        this.eventsPool.concat(extosopiaEventsCollection)
       )
     }
     if (this._questService.isQuestDone("REPAIRS_2")) {
-      this.basicEvents = shuffleEventArray(
-        this.basicEvents.concat(skjoldEventsCollection)
+      this.eventsPool = shuffleEventArray(
+        this.eventsPool.concat(skjoldEventsCollection)
       )
     }
-    this.basicEvents = shuffleEventArray(this.basicEvents)
+    this.eventsPool = shuffleEventArray(this.eventsPool)
     if (!this.hasSeenIntro$.value) {
-      this.basicEvents = [...introEventsCollection].concat(this.basicEvents)
+      this.eventsPool = [...introEventsCollection].concat(this.eventsPool)
     }
     if (this._userService.checkInventory("CARTOGRAPHER_MAP")) {
       this.injectFollowedEvent(skjoldAsteroidEvents, 15)
@@ -101,13 +101,14 @@ export class EventService {
       this._gameService.setGameBackground("pastShip")
       // TODO: add past events
     }
-    this.currentEvent$.next(this.basicEvents[0])
-    this.basicEvents.shift()
+    this.currentEvent$.next(this.eventsPool[0])
+    this.eventsPool.shift()
   }
 
   initializeNewGame(): void {
     this.resetEventCounter()
     this.isTimeSuspended$.next(true)
+    this.initializeEventArray()
   }
 
   resetEventCounter(): void {
@@ -116,7 +117,7 @@ export class EventService {
 
   injectFollowedEvent(collection: EventModel[], maxDistance: number): void {
     const randomIndex = getRandomNumber(maxDistance)
-    this.basicEvents.splice(randomIndex, 0, ...collection)
+    this.eventsPool.splice(randomIndex, 0, ...collection)
   }
 
   onSpecialEvent(eventValue: string): void {
@@ -141,8 +142,8 @@ export class EventService {
         this._questService.removeQuest("GAUGE_RELIC")
         break
       case "EXTOSOPIA_EVENTS":
-        this.basicEvents = shuffleEventArray(
-          this.basicEvents.concat(extosopiaEventsCollection)
+        this.eventsPool = shuffleEventArray(
+          this.eventsPool.concat(extosopiaEventsCollection)
         )
         this.injectFollowedEvent(extosopiaRepairEvents, 10)
         break
@@ -172,14 +173,14 @@ export class EventService {
           this._userService.removeItem("CARTOGRAPHER_MAP")
           this.openQuestSnackbar("Survive an asteroid field")
           this._questService.removeQuest("REPAIRS_2")
-          this.basicEvents = shuffleEventArray(
-            this.basicEvents.concat(skjoldEventsCollection)
+          this.eventsPool = shuffleEventArray(
+            this.eventsPool.concat(skjoldEventsCollection)
           )
-          this.basicEvents.unshift(skjoldIntroEvents[0])
+          this.eventsPool.unshift(skjoldIntroEvents[0])
           this.injectFollowedEvent(skjoldBunkerEvents, 20)
         } else {
           this.injectFollowedEvent(skjoldAsteroidEvents, 15)
-          this.basicEvents.unshift(asteroidEventFail)
+          this.eventsPool.unshift(asteroidEventFail)
         }
         this._gameService.setGameBackground("classicShip")
         this._gameService.setDeckVisible(true)
@@ -191,7 +192,7 @@ export class EventService {
         this._itemService.federationWarper$.next(true)
         this._userService.addItem("FEDERATION_WARPER")
         this._gameService.launchBlackScreenAnimation()
-        this.basicEvents = [...pastEventsIntro, ...this.basicEvents]
+        this.eventsPool = [...pastEventsIntro, ...this.eventsPool]
         setTimeout(() => {
           this._gameService.setGameBackground("pastShip")
         }, 1000)
@@ -210,7 +211,7 @@ export class EventService {
           !this._questService.isQuestDone("EXTOSOPIA") ||
           !this._userService.checkInventory("GAUGE_RELIC")
         ) {
-          this.basicEvents.unshift(
+          this.eventsPool.unshift(
             lightYearEvents.find((event) => event.quest === "EXTOSOPIA") ||
               ({} as EventModel)
           )

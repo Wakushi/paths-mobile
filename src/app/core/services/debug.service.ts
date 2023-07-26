@@ -35,7 +35,7 @@ export class DebugService {
     console.log(this._eventService.currentEvent$.value)
     console.log("- - - - - - - - - -")
     console.log("Basic events : ")
-    console.log(this._eventService.basicEvents)
+    console.log(this._eventService.eventsPool)
     console.log("- - - - - - - - - -")
     console.log("Discarded events : ")
     console.log(this._eventService.eventDiscard)

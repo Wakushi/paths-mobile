@@ -992,7 +992,7 @@ export const basicEventsCollection: EventModel[] = [
     eventImage: ARCHITECTE_STELLAIRE_ORION_IMAGE,
     rightChoice: {
       text: "Capture the energy emission.",
-      consequence: { energy: 30, time: -20 },
+      consequence: { energy: 20, time: -20 },
     },
     leftChoice: {
       text: "Steer clear of the white dwarf.",
