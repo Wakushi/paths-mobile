@@ -6,44 +6,56 @@
     <div
       [ngStyle]="{
         height:
-          (timeGauge$
+          (gaugesService.timeGauge$
             | async
-            | divideByTwo : (chronicubeRelic$ | async) === true) + '%',
+            | divideByTwo: (itemService.chronicubeRelic$ | async) === true) +
+          '%',
         backgroundColor:
-          (highlightTimeGauge$ | async) ? 'var(--highlight-gauge)' : 'white'
+          (gaugesService.highlightTimeGauge$ | async)
+            ? 'var(--highlight-gauge)'
+            : 'white'
       }"
       class="gauge-box"
     ></div>
     <div
       [ngStyle]="{
         height:
-          (energyGauge$
+          (gaugesService.energyGauge$
             | async
-            | divideByTwo : (chronicubeRelic$ | async) === true) + '%',
+            | divideByTwo: (itemService.chronicubeRelic$ | async) === true) +
+          '%',
         backgroundColor:
-          (highlightEnergyGauge$ | async) ? 'var(--highlight-gauge)' : 'white'
+          (gaugesService.highlightEnergyGauge$ | async)
+            ? 'var(--highlight-gauge)'
+            : 'white'
       }"
       class="gauge-box"
     ></div>
     <div
       [ngStyle]="{
         height:
-          (healthGauge$
+          (gaugesService.healthGauge$
             | async
-            | divideByTwo : (chronicubeRelic$ | async) === true) + '%',
+            | divideByTwo: (itemService.chronicubeRelic$ | async) === true) +
+          '%',
         backgroundColor:
-          (highlightHealthGauge$ | async) ? 'var(--highlight-gauge)' : 'white'
+          (gaugesService.highlightHealthGauge$ | async)
+            ? 'var(--highlight-gauge)'
+            : 'white'
       }"
       class="gauge-box"
     ></div>
     <div
       [ngStyle]="{
         height:
-          (mentalGauge$
+          (gaugesService.mentalGauge$
             | async
-            | divideByTwo : (chronicubeRelic$ | async) === true) + '%',
+            | divideByTwo: (itemService.chronicubeRelic$ | async) === true) +
+          '%',
         backgroundColor:
-          (highlightMentalGauge$ | async) ? 'var(--highlight-gauge)' : 'white'
+          (gaugesService.highlightMentalGauge$ | async)
+            ? 'var(--highlight-gauge)'
+            : 'white'
       }"
       class="gauge-box"
     ></div>
